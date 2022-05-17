@@ -9,12 +9,9 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.postfinancecompose.payment.presentation.composables.PaymentsHeader
 import com.example.postfinancecompose.payment.presentation.composables.PaymentsTopAppBar
@@ -39,20 +36,11 @@ fun PaymentsScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .drawBehind {
-                    drawRect(
-                        color = topBackgroundColor,
-                        size = Size(
-                            width = this.size.width,
-                            height = this.size.height / 4.2f
-                        )
-                    )
-                }
                 .padding(paddingValues)
         ) {
             LazyColumn {
                 item {
-                    PaymentsHeader(modifier = Modifier.padding(0.dp, 130.dp, 0.dp, 0.dp))
+                    PaymentsHeader()
                 }
             }
         }
