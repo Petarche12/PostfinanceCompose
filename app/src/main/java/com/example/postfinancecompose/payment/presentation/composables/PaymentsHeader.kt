@@ -2,6 +2,7 @@ package com.example.postfinancecompose.payment.presentation.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,36 +20,46 @@ fun PaymentsHeader(
     topBackgroundColor: Color = MaterialTheme.colors.primary,
     backgroundColor: Color = Color.White,
 ) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(200.dp)
-            .background(backgroundColor)
-            .drawBehind {
-                drawRect(
-                    color = topBackgroundColor,
-                    size = Size(this.size.width, this.size.height / 1.5f)
-                )
-            }
-            .padding(0.dp, 105.dp, 0.dp, 0.dp),
-        verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.SpaceEvenly
-    ) {
-        HeaderItem(
-            iconDrawable = R.drawable.ic_launcher_foreground,
-            buttonTitle = "Capture receipt",
-            iconSize = 40.dp
+    Box(modifier = modifier
+        .fillMaxWidth()
+        .height(200.dp)
+        .background(backgroundColor)
+        .drawBehind {
+            drawRect(
+                color = topBackgroundColor,
+                size = Size(this.size.width, this.size.height / 1.5f)
+            )
+        }) {
+        LinearProgressIndicator(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(0.dp, 129.dp, 0.dp, 0.dp),
+            backgroundColor = Color.Green,
+            color = Color.Red
         )
-        HeaderItem(
-            iconDrawable = R.drawable.ic_launcher_foreground,
-            buttonTitle = "New order",
-            iconSize = 44.dp
-        )
-        HeaderItem(
-            iconDrawable = R.drawable.ic_launcher_foreground,
-            buttonTitle = "Transfer",
-            iconSize = 40.dp
-        )
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(0.dp, 105.dp, 0.dp, 0.dp),
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            HeaderItem(
+                iconDrawable = R.drawable.ic_launcher_foreground,
+                buttonTitle = "Capture receipt",
+                iconSize = 40.dp
+            )
+            HeaderItem(
+                iconDrawable = R.drawable.ic_launcher_foreground,
+                buttonTitle = "New order",
+                iconSize = 44.dp
+            )
+            HeaderItem(
+                iconDrawable = R.drawable.ic_launcher_foreground,
+                buttonTitle = "Transfer",
+                iconSize = 40.dp
+            )
+        }
     }
 }
 
