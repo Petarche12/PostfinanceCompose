@@ -2,13 +2,15 @@ package com.example.postfinancecompose.payment.presentation
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.material.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.postfinancecompose.payment.presentation.composables.BackIconButton
+import com.example.postfinancecompose.payment.presentation.composables.PaymentsTopAppBar
 import com.example.postfinancecompose.ui.theme.LocalSpacing
 
 @Composable
@@ -22,30 +24,17 @@ fun PaymentsScreen(
 
     Scaffold(
         topBar = {
-            PaymentsAppBar()
+            PaymentsTopAppBar()
         }
     ) { paddingValues ->
+        Box(modifier = Modifier.padding(paddingValues), Alignment.Center) {
+            LazyColumn {
 
-        Box(modifier = Modifier.padding(paddingValues)) {
-
+            }
         }
-
     }
 
 }
 
-@Composable
-fun PaymentsAppBar() {
-    TopAppBar {
-        Box(modifier = Modifier.weight(1f)) {
-            BackIconButton(Modifier.align(Alignment.CenterStart))
-            Text(
-                text = "Payments",
-                color = MaterialTheme.colors.onPrimary,
-                style = MaterialTheme.typography.h5,
-                modifier = Modifier.align(Alignment.Center)
-            )
-        }
-    }
-}
+
 
