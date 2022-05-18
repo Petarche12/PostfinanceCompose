@@ -18,8 +18,29 @@
         <entry key="../../../../layout/compose-model-1652788411481.xml" value="0.33796296296296297" />
         <entry key="../../../../layout/compose-model-1652788687089.xml" value="0.33796296296296297" />
         <entry key="../../../../layout/compose-model-1652791524794.xml" value="0.33796296296296297" />
+        <entry key="../../../../layout/compose-model-1652854954641.xml" value="0.33796296296296297" />
+        <entry key="../../../../layout/compose-model-1652855598880.xml" value="0.75" />
+        <entry key="../../../../layout/compose-model-1652856456466.xml" value="0.26815878378378377" />
+        <entry key="../../../../layout/compose-model-1652856721251.xml" value="2.0" />
+        <entry key="../../../../layout/compose-model-1652857731101.xml" value="0.34444444444444444" />
+        <entry key="../../../../layout/compose-model-1652857759322.xml" value="0.34444444444444444" />
+        <entry key="../../../../layout/compose-model-1652858401274.xml" value="0.34444444444444444" />
+        <entry key="../../../../layout/compose-model-1652858467112.xml" value="1.25" />
+        <entry key="../../../../layout/compose-model-1652869252777.xml" value="0.34444444444444444" />
+        <entry key="../../../../layout/compose-model-1652869353444.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1652869358080.xml" value="2.0" />
+        <entry key="../../../../layout/compose-model-1652869361861.xml" value="0.387037037037037" />
+        <entry key="../../../../layout/compose-model-1652869400280.xml" value="2.0" />
+        <entry key="../../../../layout/compose-model-1652869434671.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1652869451387.xml" value="1.52" />
+        <entry key="../../../../layout/compose-model-1652869464334.xml" value="0.67" />
+        <entry key="../../../../layout/compose-model-1652869473517.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1652869537757.xml" value="0.387037037037037" />
+        <entry key="../../../../layout/compose-model-1652870431183.xml" value="0.387037037037037" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.209" />
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_ios_new_24.xml" value="0.1825" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1825" />
+        <entry key="app/src/main/res/drawable/ic_outline_photo_camera_24.xml" value="0.209" />
         <entry key="app/src/main/res/drawable/payments_background.xml" value="0.1825" />
       </map>
     </option>

@@ -35,7 +35,7 @@ fun RecommendedRecipientItem(
     val context = LocalContext.current
     Column(
         modifier = modifier
-            .size(60.dp)
+            .size(100.dp)
             .background(Color.Transparent)
             .clip(RoundedCornerShape(10.dp))
             .border(1.dp, Color.Black, shape = RoundedCornerShape(10.dp))
@@ -44,14 +44,14 @@ fun RecommendedRecipientItem(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Icon(
-            modifier = modifier.size(24.dp),
+            modifier = modifier.size(50.dp),
             painter = painterResource(id = stringRes),
             contentDescription = "Icon for recipient $recipientName"
         )
         Text(
             text = recipientName,
             color = Color.Black,
-            fontSize = 8.sp,
+            fontSize = 12.sp,
             maxLines = 2,
             textAlign = TextAlign.Center
         )

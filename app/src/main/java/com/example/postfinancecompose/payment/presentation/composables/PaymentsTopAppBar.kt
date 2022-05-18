@@ -11,8 +11,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun PaymentsTopAppBar() {
-    TopAppBar(elevation = 0.dp) {
+fun PaymentsTopAppBar(modifier: Modifier = Modifier) {
+    TopAppBar(modifier = modifier, elevation = 0.dp) {
         Box(modifier = Modifier.weight(1f)) {
             BackIconButton(Modifier.align(Alignment.CenterStart))
             Text(

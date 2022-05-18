@@ -12,53 +12,41 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.postfinancecompose.R
 
 @Composable
-fun PaymentsHeader(
+fun Header(
     modifier: Modifier = Modifier,
     topBackgroundColor: Color = MaterialTheme.colors.primary,
     backgroundColor: Color = Color.White,
+    buttons: @Composable (() -> Unit)? = null
 ) {
-    Box(modifier = modifier
-        .fillMaxWidth()
-        .height(200.dp)
-        .background(backgroundColor)
-        .drawBehind {
-            drawRect(
-                color = topBackgroundColor,
-                size = Size(this.size.width, this.size.height / 1.5f)
-            )
-        }) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(200.dp)
+            .background(backgroundColor)
+            .drawBehind {
+                drawRect(
+                    color = topBackgroundColor,
+                    size = Size(this.size.width, this.size.height / 1.5f)
+                )
+            }) {
         LinearProgressIndicator(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(0.dp, 129.dp, 0.dp, 0.dp),
+                .padding(0.dp, 132.dp, 0.dp, 0.dp)
+                .height(2.dp),
             backgroundColor = Color.Green,
             color = Color.Red
         )
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(0.dp, 105.dp, 0.dp, 0.dp),
+                .padding(0.dp, 106.dp, 0.dp, 0.dp),
             verticalAlignment = Alignment.Top,
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            HeaderItem(
-                iconDrawable = R.drawable.ic_launcher_foreground,
-                buttonTitle = "Capture receipt",
-                iconSize = 40.dp
-            )
-            HeaderItem(
-                iconDrawable = R.drawable.ic_launcher_foreground,
-                buttonTitle = "New order",
-                iconSize = 44.dp
-            )
-            HeaderItem(
-                iconDrawable = R.drawable.ic_launcher_foreground,
-                buttonTitle = "Transfer",
-                iconSize = 40.dp
-            )
+            buttons?.invoke()
         }
     }
 }
@@ -66,5 +54,5 @@ fun PaymentsHeader(
 @Preview
 @Composable
 fun PaymentsHeaderPreview() {
-    PaymentsHeader()
+    Header()
 }
