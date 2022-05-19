@@ -12,7 +12,11 @@ import com.example.postfinancecompose.payment.models.Recipient
 import com.example.postfinancecompose.ui.theme.LocalSpacing
 
 @Composable
-fun RecipientsSection(modifier: Modifier = Modifier, recipients: List<Recipient> = emptyList()) {
+fun RecipientsSection(
+    modifier: Modifier = Modifier,
+    isLoading: Boolean,
+    recipients: List<Recipient> = emptyList()
+) {
 
     val spacing = LocalSpacing.current
     val context = LocalContext.current
@@ -27,27 +31,48 @@ fun RecipientsSection(modifier: Modifier = Modifier, recipients: List<Recipient>
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            itemsIndexed(recipients) { index, item ->
-                if (index == 0) {
-                    Spacer(modifier = Modifier.width(spacing.spaceMedium))
-                } else {
-                    Spacer(modifier = Modifier.width(spacing.spaceSmall))
+            if (isLoading) {
+                val numberOfRepeats = 3
+                repeat(numberOfRepeats) { index ->
+                    item {
+                        RecommendedSectionItem(index = index, size = numberOfRepeats) {
+                            RecommendedRecipientItemLoading()
+                        }
+                    }
                 }
-                RecommendedRecipientItem(
-                    stringRes = R.drawable.ic_launcher_foreground,
-                    recipientName = item.name.asString(context)
-                )
-                if (index == recipients.size - 1) {
-                    Spacer(modifier = Modifier.width(spacing.spaceMedium))
+            } else {
+                itemsIndexed(recipients) { index, recipient ->
+                    RecommendedSectionItem(index = index, size = recipients.size) {
+                        RecommendedRecipientItem(
+                            stringRes = R.drawable.ic_launcher_foreground,
+                            recipientName = recipient.name.asString(context)
+                        )
+                    }
                 }
             }
         }
     }
+}
 
+@Composable
+fun RecommendedSectionItem(index: Int, size: Int = 0, item: @Composable () -> Unit) {
+
+    val spacing = LocalSpacing.current
+    val context = LocalContext.current
+
+    if (index == 0) {
+        Spacer(modifier = Modifier.width(spacing.spaceMedium))
+    } else {
+        Spacer(modifier = Modifier.width(spacing.spaceSmall))
+    }
+    item.invoke()
+    if (index == size - 1) {
+        Spacer(modifier = Modifier.width(spacing.spaceMedium))
+    }
 }
 
 @Preview
 @Composable
 fun RecipientSectionPreview() {
-    RecipientsSection()
+    RecipientsSection(isLoading = false)
 }

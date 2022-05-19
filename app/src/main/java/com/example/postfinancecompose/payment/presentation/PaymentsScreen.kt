@@ -82,6 +82,7 @@ fun PaymentsScreen(
                         )
                         Spacer(modifier = Modifier.height(spacing.spaceMedium))
                         RecipientsSection(
+                            isLoading = state.isLoading,
                             recipients = state.recommendedRecipients
                         )
                     }
