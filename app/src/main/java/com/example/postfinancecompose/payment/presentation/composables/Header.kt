@@ -18,6 +18,7 @@ fun Header(
     modifier: Modifier = Modifier,
     topBackgroundColor: Color = MaterialTheme.colors.primary,
     backgroundColor: Color = Color.White,
+    isProgressIndicatorVisible: Boolean = true,
     buttons: @Composable (() -> Unit)? = null
 ) {
     Box(
@@ -31,14 +32,16 @@ fun Header(
                     size = Size(this.size.width, this.size.height / 1.5f)
                 )
             }) {
-        LinearProgressIndicator(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(0.dp, 132.dp, 0.dp, 0.dp)
-                .height(2.dp),
-            backgroundColor = Color.Green,
-            color = Color.Red
-        )
+        if (isProgressIndicatorVisible) {
+            LinearProgressIndicator(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(0.dp, 132.dp, 0.dp, 0.dp)
+                    .height(2.dp),
+                backgroundColor = Color.Green,
+                color = Color.Red,
+            )
+        }
         Row(
             modifier = modifier
                 .fillMaxWidth()

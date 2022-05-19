@@ -1,7 +1,8 @@
 package com.plcoding.core.util
 
+import com.example.postfinancecompose.util.UiText
+
 sealed class UiEvent {
-    object Success: UiEvent()
-    object NavigateUp: UiEvent()
-    data class ShowSnackbar(val message: UiText): UiEvent()
+    object NavigateUp : UiEvent()
+    data class ShowSnackbar(val message: UiText) : UiEvent()
 }

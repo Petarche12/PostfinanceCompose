@@ -5,14 +5,17 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.postfinancecompose.R
+import com.example.postfinancecompose.payment.models.Recipient
 import com.example.postfinancecompose.ui.theme.LocalSpacing
 
 @Composable
-fun RecipientsSection(modifier: Modifier = Modifier, recipients: List<String> = emptyList()) {
+fun RecipientsSection(modifier: Modifier = Modifier, recipients: List<Recipient> = emptyList()) {
 
     val spacing = LocalSpacing.current
+    val context = LocalContext.current
 
     Column(
         modifier = modifier
@@ -32,7 +35,7 @@ fun RecipientsSection(modifier: Modifier = Modifier, recipients: List<String> = 
                 }
                 RecommendedRecipientItem(
                     stringRes = R.drawable.ic_launcher_foreground,
-                    recipientName = item
+                    recipientName = item.name.asString(context)
                 )
                 if (index == recipients.size - 1) {
                     Spacer(modifier = Modifier.width(spacing.spaceMedium))
@@ -46,16 +49,5 @@ fun RecipientsSection(modifier: Modifier = Modifier, recipients: List<String> = 
 @Preview
 @Composable
 fun RecipientSectionPreview() {
-    RecipientsSection(
-        recipients = listOf(
-            "Petarche Lazarevski",
-            "Petarche Lazarevski",
-            "Petarche Lazarevski",
-            "Petarche Lazarevski",
-            "Petarche Lazarevski",
-            "Petarche Lazarevski",
-            "Petarche Lazarevski",
-            "Petarche Lazarevski",
-        )
-    )
+    RecipientsSection()
 }

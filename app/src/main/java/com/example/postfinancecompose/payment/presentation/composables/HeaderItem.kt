@@ -28,7 +28,8 @@ fun HeaderItem(
     icon: ImageVector,
     iconSize: Dp = 36.dp,
     buttonTitle: String,
-    backgroundColor: Color = Color.Transparent
+    backgroundColor: Color = Color.Transparent,
+    onIconClicked: (() -> Unit)? = null
 ) {
     Column(
         modifier = modifier
@@ -39,7 +40,7 @@ fun HeaderItem(
     ) {
         IconButton(
             modifier = Modifier.wrapContentSize(),
-            onClick = {}
+            onClick = { onIconClicked?.invoke() }
         ) {
             Icon(
                 modifier = Modifier
