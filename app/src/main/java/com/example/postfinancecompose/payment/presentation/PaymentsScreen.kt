@@ -16,10 +16,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.postfinancecompose.payment.presentation.composables.Header
-import com.example.postfinancecompose.payment.presentation.composables.HeaderItem
-import com.example.postfinancecompose.payment.presentation.composables.PaymentsTopAppBar
-import com.example.postfinancecompose.payment.presentation.composables.RecipientsSection
+import com.example.postfinancecompose.R
+import com.example.postfinancecompose.payment.presentation.composables.*
 import com.example.postfinancecompose.ui.theme.LocalSpacing
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -85,6 +83,14 @@ fun PaymentsScreen(
                             isLoading = state.isLoading,
                             recipients = state.recommendedRecipients
                         )
+                        Spacer(modifier = Modifier.height(spacing.spaceMedium))
+                        BillSection(
+                            isLoading = state.isLoading,
+                            sectionTitle = "eBill",
+                            imageRes = R.drawable.ic_launcher_foreground
+                        ) {
+                            //TODO implement on click
+                        }
                     }
                 }
             }
