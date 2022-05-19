@@ -59,15 +59,22 @@ class PaymentsViewModel @Inject constructor(
                 PaymentsOverviewEvents.OnTransferClicked -> {
                     _uiEvent.send(UiEvent.ShowSnackbar(UiText.DynamicString("On transfer clicked")))
                 }
+                PaymentsOverviewEvents.OnSwipeToRefreshTriggered -> {
+                    loadData(true)
+                }
             }
         }
     }
 
-    private fun loadData() {
-        state = state.copy(isLoading = true)
+    private fun loadData(isRefreshing: Boolean = false) {
+        state = state.copy(isLoading = true, isRefreshing = isRefreshing)
         viewModelScope.launch {
             delay(2000L)
-            state = state.copy(isLoading = false, recommendedRecipients = dummyRecipients)
+            state = state.copy(
+                isLoading = false,
+                isRefreshing = false,
+                recommendedRecipients = dummyRecipients
+            )
         }
     }
 }

@@ -3,7 +3,6 @@ package com.example.postfinancecompose.payment.presentation
 import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.icons.Icons
@@ -13,7 +12,6 @@ import androidx.compose.material.icons.outlined.PhotoCamera
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,13 +21,14 @@ import com.example.postfinancecompose.payment.presentation.composables.HeaderIte
 import com.example.postfinancecompose.payment.presentation.composables.PaymentsTopAppBar
 import com.example.postfinancecompose.payment.presentation.composables.RecipientsSection
 import com.example.postfinancecompose.ui.theme.LocalSpacing
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.plcoding.core.util.UiEvent
 
 @Composable
 fun PaymentsScreen(
     scaffoldState: ScaffoldState,
     paymentsViewModel: PaymentsViewModel = hiltViewModel(),
-    topBackgroundColor: Color = MaterialTheme.colors.primary,
 ) {
     val context = LocalContext.current
     val spacing = LocalSpacing.current
@@ -48,40 +47,44 @@ fun PaymentsScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            LazyColumn {
-                item {
-                    Header(
-                        isProgressIndicatorVisible = state.isLoading,
-                        buttons = {
-                            Spacer(modifier = Modifier.width(spacing.spaceMedium))
-                            HeaderItem(
-                                icon = Icons.Outlined.PhotoCamera,
-                                buttonTitle = "Capture receipt",
-                                iconSize = 44.dp
-                            ) {
-                                paymentsViewModel.onEvent(PaymentsOverviewEvents.OnCaptureReceiptClicked)
+            SwipeRefresh(
+                state = rememberSwipeRefreshState(isRefreshing = state.isRefreshing),
+                onRefresh = { paymentsViewModel.onEvent(PaymentsOverviewEvents.OnSwipeToRefreshTriggered) }) {
+                LazyColumn {
+                    item {
+                        Header(
+                            isProgressIndicatorVisible = state.isLoading,
+                            buttons = {
+                                Spacer(modifier = Modifier.width(spacing.spaceMedium))
+                                HeaderItem(
+                                    icon = Icons.Outlined.PhotoCamera,
+                                    buttonTitle = "Capture receipt",
+                                    iconSize = 44.dp
+                                ) {
+                                    paymentsViewModel.onEvent(PaymentsOverviewEvents.OnCaptureReceiptClicked)
+                                }
+                                HeaderItem(
+                                    icon = Icons.Outlined.AddCircle,
+                                    buttonTitle = "New order",
+                                    iconSize = 48.dp
+                                ) {
+                                    paymentsViewModel.onEvent(PaymentsOverviewEvents.OnNewOrderClicked)
+                                }
+                                HeaderItem(
+                                    icon = Icons.Filled.ArrowForward,
+                                    buttonTitle = "Transfer",
+                                    iconSize = 44.dp
+                                ) {
+                                    paymentsViewModel.onEvent(PaymentsOverviewEvents.OnTransferClicked)
+                                }
+                                Spacer(modifier = Modifier.width(spacing.spaceMedium))
                             }
-                            HeaderItem(
-                                icon = Icons.Outlined.AddCircle,
-                                buttonTitle = "New order",
-                                iconSize = 48.dp
-                            ) {
-                                paymentsViewModel.onEvent(PaymentsOverviewEvents.OnNewOrderClicked)
-                            }
-                            HeaderItem(
-                                icon = Icons.Filled.ArrowForward,
-                                buttonTitle = "Transfer",
-                                iconSize = 44.dp
-                            ) {
-                                paymentsViewModel.onEvent(PaymentsOverviewEvents.OnTransferClicked)
-                            }
-                            Spacer(modifier = Modifier.width(spacing.spaceMedium))
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(spacing.spaceMedium))
-                    RecipientsSection(
-                        recipients = state.recommendedRecipients
-                    )
+                        )
+                        Spacer(modifier = Modifier.height(spacing.spaceMedium))
+                        RecipientsSection(
+                            recipients = state.recommendedRecipients
+                        )
+                    }
                 }
             }
         }

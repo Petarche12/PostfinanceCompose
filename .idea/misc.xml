@@ -40,6 +40,7 @@
         <entry key="../../../../layout/compose-model-1652874754184.xml" value="2.0" />
         <entry key="../../../../layout/compose-model-1652874756912.xml" value="0.34444444444444444" />
         <entry key="../../../../layout/compose-model-1652874910825.xml" value="0.34444444444444444" />
+        <entry key="../../../../layout/compose-model-1652945524594.xml" value="0.34444444444444444" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.209" />
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_ios_new_24.xml" value="0.1825" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1825" />
@@ -48,7 +49,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17_PREVIEW" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
