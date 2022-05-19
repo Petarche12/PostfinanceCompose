@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.postfinancecompose.ui.common_composables.BackIconButton
 
 @Composable
 fun PaymentsTopAppBar(modifier: Modifier = Modifier) {

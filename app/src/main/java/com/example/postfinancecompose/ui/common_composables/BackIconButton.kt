@@ -1,4 +1,4 @@
-package com.example.postfinancecompose.payment.presentation.composables
+package com.example.postfinancecompose.ui.common_composables
 
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton

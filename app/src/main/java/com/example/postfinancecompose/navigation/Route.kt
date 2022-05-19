@@ -1,4 +1,4 @@
-package com.plcoding.calorytracker.navigation
+package com.example.postfinancecompose.navigation
 
 object Route {
     const val PAYMENTS = "payments"

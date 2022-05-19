@@ -53,7 +53,7 @@ fun PaymentsScreen(
                 LazyColumn {
                     item {
                         Header(
-                            isProgressIndicatorVisible = state.isLoading,
+                            isLoading = state.isLoading,
                             buttons = {
                                 Spacer(modifier = Modifier.width(spacing.spaceMedium))
                                 HeaderItem(

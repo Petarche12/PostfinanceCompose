@@ -5,14 +5,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.*
+import androidx.compose.material.Scaffold
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.postfinancecompose.navigation.Route
 import com.example.postfinancecompose.payment.presentation.PaymentsScreen
 import com.example.postfinancecompose.ui.theme.PostfinanceComposeTheme
-import com.plcoding.calorytracker.navigation.Route
 import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -28,7 +29,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     scaffoldState = scaffoldState
-                ) {  _ ->
+                ) {
                     NavHost(
                         navController = navController,
                         startDestination = Route.PAYMENTS

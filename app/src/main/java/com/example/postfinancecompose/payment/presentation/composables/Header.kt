@@ -18,7 +18,7 @@ fun Header(
     modifier: Modifier = Modifier,
     topBackgroundColor: Color = MaterialTheme.colors.primary,
     backgroundColor: Color = Color.White,
-    isProgressIndicatorVisible: Boolean = true,
+    isLoading: Boolean = true,
     buttons: @Composable (() -> Unit)? = null
 ) {
     Box(
@@ -31,8 +31,9 @@ fun Header(
                     color = topBackgroundColor,
                     size = Size(this.size.width, this.size.height / 1.5f)
                 )
-            }) {
-        if (isProgressIndicatorVisible) {
+            }
+    ) {
+        if (isLoading) {
             LinearProgressIndicator(
                 modifier = Modifier
                     .fillMaxWidth()
