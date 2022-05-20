@@ -1,6 +1,5 @@
 package com.example.postfinancecompose.payment.presentation.composables
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -15,40 +14,62 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.postfinancecompose.R
+import com.example.postfinancecompose.payment.models.Bill
+import com.example.postfinancecompose.payment.presentation.BillSectionState
 import com.example.postfinancecompose.ui.common_composables.getShimmerBrush
 import com.example.postfinancecompose.ui.theme.LocalSpacing
 
 @Composable
 fun BillSection(
     modifier: Modifier = Modifier,
-    isLoading: Boolean,
     sectionTitle: String,
-    @DrawableRes imageRes: Int,
-    onActivateEBillClicked: () -> Unit
+    billSectionState: BillSectionState,
+    onButtonClicked: () -> Unit
 ) {
-    when {
-        isLoading == false -> {
-            NoActiveBill(
-                modifier = modifier,
-                sectionTitle = sectionTitle,
-                imageRes = imageRes,
-                onActivateEBillClicked = onActivateEBillClicked
-            )
-        }
-        isLoading == true -> {
-            SectionHeader(sectionTitle = "eBill")
-            LoadingBillSection(modifier = modifier)
+    Column(modifier = modifier) {
+        SectionHeader(sectionTitle = sectionTitle)
+        when (billSectionState) {
+
+            BillSectionState.Undefined -> {
+                BillSectionLoading(modifier = modifier)
+            }
+
+            BillSectionState.Inactive -> {
+                val explanationText = "Receive and pay invoices electronically"
+                val buttonText = "Activate eBill"
+                NoBillsView(
+                    explanationText = explanationText,
+                    buttonText = buttonText,
+                    imageRes = R.drawable.ic_launcher_foreground,
+                    onButtonClicked = onButtonClicked
+                )
+            }
+
+            BillSectionState.Insufficient -> {
+                val explanationText =
+                    "Your authorizations for displaying eBill invoices are no longer sufficient."
+                val buttonText = "eBill settings"
+                NoBillsView(
+                    explanationText = explanationText,
+                    buttonText = buttonText,
+                    imageRes = null,
+                    onButtonClicked = onButtonClicked,
+                )
+            }
+            is BillSectionState.Valid -> {
+                BillsRow(eBills = billSectionState.bills)
+            }
         }
     }
 }
 
 @Composable
-fun LoadingBillSection(modifier: Modifier = Modifier, brush: Brush = getShimmerBrush()) {
+fun BillSectionLoading(modifier: Modifier = Modifier, brush: Brush = getShimmerBrush()) {
     val spacing = LocalSpacing.current
     LazyRow(
         modifier = modifier.padding(spacing.spaceMedium)
@@ -87,34 +108,35 @@ fun LoadingBillSection(modifier: Modifier = Modifier, brush: Brush = getShimmerB
     }
 }
 
-
 @Composable
-fun NoActiveBill(
+fun NoBillsView(
     modifier: Modifier = Modifier,
-    sectionTitle: String,
-    @DrawableRes imageRes: Int,
-    onActivateEBillClicked: () -> Unit
+    explanationText: String,
+    buttonText: String,
+    imageRes: Int?,
+    onButtonClicked: () -> Unit
 ) {
+
     val spacing = LocalSpacing.current
-    val context = LocalContext.current
 
     Column(
         modifier = modifier
             .wrapContentHeight()
             .fillMaxWidth()
     ) {
-        SectionHeader(sectionTitle = sectionTitle)
         Column(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = painterResource(id = imageRes),
-                contentDescription = "e-bill image"
-            )
+            imageRes?.let {
+                Image(
+                    painter = painterResource(id = imageRes),
+                    contentDescription = "e-bill image"
+                )
+            }
             Spacer(modifier = Modifier.height(spacing.spaceLarge))
-            Text(text = "Receive and pay invoices electronically")
+            Text(text = explanationText)
             Spacer(modifier = Modifier.height(spacing.spaceLarge))
             Text(
                 modifier = Modifier
@@ -122,26 +144,23 @@ fun NoActiveBill(
                     .border(width = 1.dp, Color.Black, RoundedCornerShape(25.dp))
                     .background(Color.Transparent)
                     .clickable {
-                        onActivateEBillClicked()
+                        onButtonClicked()
                     }
                     .padding(20.dp),
-                text = "Activate eBill",
+                text = buttonText,
                 textAlign = TextAlign.Center,
             )
-
         }
     }
+}
+
+@Composable
+fun BillsRow(modifier: Modifier = Modifier, eBills: List<Bill>) {
+    //TODO
 }
 
 @Preview(showBackground = true)
 @Composable
 fun BillSectionPreview() {
-//    BillSection(
-//        isLoading = false,
-//        sectionTitle = "eBill",
-//        imageRes = R.drawable.ic_launcher_foreground
-//    ) {
-//
-//    }
-    LoadingBillSection()
+    BillSectionLoading()
 }

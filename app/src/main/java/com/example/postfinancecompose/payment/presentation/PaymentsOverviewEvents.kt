@@ -5,4 +5,7 @@ sealed class PaymentsOverviewEvents {
     object OnNewOrderClicked : PaymentsOverviewEvents()
     object OnTransferClicked : PaymentsOverviewEvents()
     object OnSwipeToRefreshTriggered : PaymentsOverviewEvents()
+    object OnActivateEBillClicked : PaymentsOverviewEvents()
+    object OnEBillSettingsClicked : PaymentsOverviewEvents()
+    object OnEBillClicked : PaymentsOverviewEvents()
 }

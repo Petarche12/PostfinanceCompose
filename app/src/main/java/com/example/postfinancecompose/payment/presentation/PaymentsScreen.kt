@@ -16,7 +16,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.postfinancecompose.R
 import com.example.postfinancecompose.payment.presentation.composables.*
 import com.example.postfinancecompose.ui.theme.LocalSpacing
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -80,16 +79,22 @@ fun PaymentsScreen(
                         )
                         Spacer(modifier = Modifier.height(spacing.spaceMedium))
                         RecipientsSection(
-                            isLoading = state.isLoading,
-                            recipients = state.recommendedRecipients
+                            recommendedRecipientsState = state.recommendedRecipientsState
                         )
                         Spacer(modifier = Modifier.height(spacing.spaceMedium))
                         BillSection(
-                            isLoading = state.isLoading,
                             sectionTitle = "eBill",
-                            imageRes = R.drawable.ic_launcher_foreground
+                            billSectionState = paymentsViewModel.state.billSectionState
                         ) {
-                            //TODO implement on click
+                            when (paymentsViewModel.state.billSectionState) {
+                                BillSectionState.Inactive -> {
+                                    paymentsViewModel.onEvent(PaymentsOverviewEvents.OnActivateEBillClicked)
+                                }
+                                BillSectionState.Insufficient -> {
+                                    paymentsViewModel.onEvent(PaymentsOverviewEvents.OnEBillSettingsClicked)
+                                }
+                                else -> Unit
+                            }
                         }
                     }
                 }

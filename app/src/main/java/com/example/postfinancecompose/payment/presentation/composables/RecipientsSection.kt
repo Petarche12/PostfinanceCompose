@@ -8,16 +8,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.postfinancecompose.R
-import com.example.postfinancecompose.payment.models.Recipient
+import com.example.postfinancecompose.payment.presentation.RecommendedRecipientsState
 import com.example.postfinancecompose.ui.theme.LocalSpacing
 
 @Composable
 fun RecipientsSection(
     modifier: Modifier = Modifier,
-    isLoading: Boolean,
-    recipients: List<Recipient> = emptyList()
+    recommendedRecipientsState: RecommendedRecipientsState
 ) {
-
     val spacing = LocalSpacing.current
     val context = LocalContext.current
 
@@ -31,24 +29,33 @@ fun RecipientsSection(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            if (isLoading) {
-                val numberOfRepeats = 3
-                repeat(numberOfRepeats) { index ->
-                    item {
-                        RecommendedSectionItem(index = index, size = numberOfRepeats) {
-                            RecommendedRecipientItemLoading()
+            when (recommendedRecipientsState) {
+
+                RecommendedRecipientsState.Undefined -> {
+                    val numberOfRepeats = 3
+                    repeat(numberOfRepeats) { index ->
+                        item {
+                            RecommendedSectionItem(index = index, size = numberOfRepeats) {
+                                RecommendedRecipientItemLoading()
+                            }
                         }
                     }
                 }
-            } else {
-                itemsIndexed(recipients) { index, recipient ->
-                    RecommendedSectionItem(index = index, size = recipients.size) {
-                        RecommendedRecipientItem(
-                            stringRes = R.drawable.ic_launcher_foreground,
-                            recipientName = recipient.name.asString(context)
-                        )
+
+                is RecommendedRecipientsState.Valid -> {
+                    itemsIndexed(recommendedRecipientsState.recipients) { index, recipient ->
+                        RecommendedSectionItem(
+                            index = index,
+                            size = recommendedRecipientsState.recipients.size
+                        ) {
+                            RecommendedRecipientItem(
+                                stringRes = R.drawable.ic_launcher_foreground,
+                                recipientName = recipient.name.asString(context)
+                            )
+                        }
                     }
                 }
+
             }
         }
     }
@@ -74,5 +81,4 @@ fun RecommendedSectionItem(index: Int, size: Int = 0, item: @Composable () -> Un
 @Preview
 @Composable
 fun RecipientSectionPreview() {
-    RecipientsSection(isLoading = false)
 }

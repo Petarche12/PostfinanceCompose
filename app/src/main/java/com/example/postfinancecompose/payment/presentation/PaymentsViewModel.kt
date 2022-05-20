@@ -3,7 +3,6 @@ package com.example.postfinancecompose.payment.presentation
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.postfinancecompose.payment.models.Recipient
@@ -17,9 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PaymentsViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
-) : ViewModel() {
+class PaymentsViewModel @Inject constructor() : ViewModel() {
 
     private val dummyRecipients = mutableListOf(
         Recipient(UiText.DynamicString("Petarche Lazarevski")),
@@ -62,19 +59,34 @@ class PaymentsViewModel @Inject constructor(
                 PaymentsOverviewEvents.OnSwipeToRefreshTriggered -> {
                     loadData(true)
                 }
+                PaymentsOverviewEvents.OnActivateEBillClicked -> {
+                    _uiEvent.send(UiEvent.ShowSnackbar(UiText.DynamicString("On activate eBill clicked")))
+                }
+                PaymentsOverviewEvents.OnEBillClicked -> {
+                    _uiEvent.send(UiEvent.ShowSnackbar(UiText.DynamicString("EBill clicked")))
+                }
+                PaymentsOverviewEvents.OnEBillSettingsClicked -> {
+                    _uiEvent.send(UiEvent.ShowSnackbar(UiText.DynamicString("On EBill settings clicked")))
+                }
             }
         }
     }
 
     private fun loadData(isRefreshing: Boolean = false) {
-        state = state.copy(isLoading = true, isRefreshing = isRefreshing)
+        state = state.copy(
+            isLoading = true,
+            isRefreshing = isRefreshing,
+            recommendedRecipientsState = RecommendedRecipientsState.Undefined,
+            billSectionState = BillSectionState.Undefined
+        )
         viewModelScope.launch {
             delay(2000L)
             state = state.copy(
-                isLoading = false,
                 isRefreshing = false,
-                recommendedRecipients = dummyRecipients
+                recommendedRecipientsState = RecommendedRecipientsState.Valid(dummyRecipients),
+                billSectionState = BillSectionState.Inactive
             )
+            state = state.copy(isLoading = false)
         }
     }
 }
