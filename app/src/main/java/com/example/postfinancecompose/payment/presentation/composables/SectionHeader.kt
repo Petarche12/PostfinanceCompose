@@ -1,9 +1,11 @@
 package com.example.postfinancecompose.payment.presentation.composables
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,7 +20,11 @@ fun SectionHeader(
     sectionTitle: String,
     textColor: Color = Color.Black,
     textSize: TextUnit = 12.sp,
-    lineColor: Color = Color.Black
+    lineColor: Color = Color.Black,
+    buttonText: String = "Show all",
+    buttonTextSize: TextUnit = 12.sp,
+    buttonTextColor: Color = Color.Black,
+    onButtonClick: (() -> Unit)? = null
 ) {
     val spacing = LocalSpacing.current
     Column(
@@ -27,12 +33,26 @@ fun SectionHeader(
             .wrapContentHeight()
             .padding(spacing.spaceMedium, 0.dp)
     ) {
-        Text(
-            modifier = Modifier.padding(0.dp),
-            text = sectionTitle,
-            color = textColor,
-            fontSize = textSize
-        )
+        Box(modifier = Modifier.fillMaxWidth()) {
+            Text(
+                modifier = Modifier
+                    .padding(0.dp)
+                    .align(Alignment.CenterStart),
+                text = sectionTitle,
+                color = textColor,
+                fontSize = textSize
+            )
+            onButtonClick?.let {
+                Text(
+                    modifier = Modifier
+                        .clickable { onButtonClick() }
+                        .align(Alignment.CenterEnd),
+                    text = buttonText,
+                    color = buttonTextColor,
+                    fontSize = buttonTextSize
+                )
+            }
+        }
         Spacer(modifier = Modifier.height(spacing.spaceSmall))
         Divider(
             modifier = Modifier.fillMaxWidth(),
@@ -44,8 +64,8 @@ fun SectionHeader(
 
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun SectionHeaderPreview() {
-    SectionHeader(sectionTitle = "Recommended recipients")
+    SectionHeader(sectionTitle = "Recommended recipients") {}
 }
