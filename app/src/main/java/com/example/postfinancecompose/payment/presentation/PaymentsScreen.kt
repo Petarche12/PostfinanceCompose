@@ -12,6 +12,7 @@ import androidx.compose.material.icons.outlined.PhotoCamera
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -95,6 +96,29 @@ fun PaymentsScreen(
                                 }
                                 else -> Unit
                             }
+                        }
+                        Spacer(modifier = Modifier.height(spacing.spaceMedium))
+                        OrdersSection(state = state.pendingIndividualOrdersState) {
+                            SectionHeader(
+                                sectionTitle = "Pending individual orders",
+                                buttonText = "Show all",
+                                buttonTextColor = Color.Black,
+                                onButtonClick =
+                                if (state.pendingIndividualOrdersState is OrdersState.Valid) {
+                                    { paymentsViewModel.onEvent(PaymentsOverviewEvents.OnPendingOrdersShowMoreClicked) }
+                                } else null
+                            )
+                        }
+                        OrdersSection(state = state.standingOrdersState) {
+                            SectionHeader(
+                                sectionTitle = "Standing orders",
+                                buttonText = "Show all",
+                                buttonTextColor = Color.Black,
+                                onButtonClick =
+                                if (state.standingOrdersState is OrdersState.Valid) {
+                                    { paymentsViewModel.onEvent(PaymentsOverviewEvents.OnPendingOrdersShowMoreClicked) }
+                                } else null
+                            )
                         }
                     }
                 }

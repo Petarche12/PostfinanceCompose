@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.postfinancecompose.payment.models.Order
 import com.example.postfinancecompose.payment.models.Recipient
 import com.example.postfinancecompose.util.UiText
 import com.plcoding.core.util.UiEvent
@@ -28,6 +29,16 @@ class PaymentsViewModel @Inject constructor() : ViewModel() {
         Recipient(UiText.DynamicString("Sara Lazarevska")),
         Recipient(UiText.DynamicString("Petarche Lazarevski")),
         Recipient(UiText.DynamicString("Petarche Lazarevski")),
+    )
+
+    private val dummyOrders = mutableListOf(
+        Order("Mobility Carsharing"),
+        Order("Mobility Carsharing"),
+        Order("Mobility Carsharing"),
+        Order("Mobility Carsharing"),
+        Order("Mobility Carsharing"),
+        Order("Mobility Carsharing"),
+        Order("Mobility Carsharing"),
     )
 
     var state by mutableStateOf(PaymentsOverviewState())
@@ -77,14 +88,18 @@ class PaymentsViewModel @Inject constructor() : ViewModel() {
             isLoading = true,
             isRefreshing = isRefreshing,
             recommendedRecipientsState = RecommendedRecipientsState.Undefined,
-            billSectionState = BillSectionState.Undefined
+            billSectionState = BillSectionState.Undefined,
+            pendingIndividualOrdersState = OrdersState.Undefined,
+            standingOrdersState = OrdersState.Undefined
         )
         viewModelScope.launch {
             delay(2000L)
             state = state.copy(
                 isRefreshing = false,
                 recommendedRecipientsState = RecommendedRecipientsState.Valid(dummyRecipients),
-                billSectionState = BillSectionState.Inactive
+                billSectionState = BillSectionState.Inactive,
+                pendingIndividualOrdersState = OrdersState.Valid(dummyOrders),
+                standingOrdersState = OrdersState.Valid(dummyOrders)
             )
             state = state.copy(isLoading = false)
         }

@@ -59,7 +59,6 @@ fun SectionHeader(
             color = lineColor.copy(alpha = 0.3f),
             thickness = 1.dp,
         )
-        Spacer(modifier = Modifier.height(spacing.spaceSmall))
     }
 
 }

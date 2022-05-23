@@ -8,4 +8,6 @@ sealed class PaymentsOverviewEvents {
     object OnActivateEBillClicked : PaymentsOverviewEvents()
     object OnEBillSettingsClicked : PaymentsOverviewEvents()
     object OnEBillClicked : PaymentsOverviewEvents()
+    object OnPendingOrdersShowMoreClicked : PaymentsOverviewEvents()
+    object OnStandingOrdersShowMoreClicked : PaymentsOverviewEvents()
 }
