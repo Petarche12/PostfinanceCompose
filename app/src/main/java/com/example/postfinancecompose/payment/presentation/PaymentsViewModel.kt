@@ -79,6 +79,7 @@ class PaymentsViewModel @Inject constructor() : ViewModel() {
                 PaymentsOverviewEvents.OnEBillSettingsClicked -> {
                     _uiEvent.send(UiEvent.ShowSnackbar(UiText.DynamicString("On EBill settings clicked")))
                 }
+                else -> Unit
             }
         }
     }

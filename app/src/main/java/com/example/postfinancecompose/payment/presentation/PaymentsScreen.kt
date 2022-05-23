@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.PhotoCamera
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -40,92 +41,95 @@ fun PaymentsScreen(
             PaymentsTopAppBar()
         }
     ) { paddingValues ->
-        Box(
+        SwipeRefresh(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
+                .padding(paddingValues),
+            state = rememberSwipeRefreshState(isRefreshing = state.isRefreshing),
+            onRefresh = { paymentsViewModel.onEvent(PaymentsOverviewEvents.OnSwipeToRefreshTriggered) }
         ) {
-            SwipeRefresh(
-                state = rememberSwipeRefreshState(isRefreshing = state.isRefreshing),
-                onRefresh = { paymentsViewModel.onEvent(PaymentsOverviewEvents.OnSwipeToRefreshTriggered) }) {
-                LazyColumn {
-                    item {
-                        Header(
-                            isLoading = state.isLoading,
-                            buttons = {
-                                Spacer(modifier = Modifier.width(spacing.spaceMedium))
-                                HeaderItem(
-                                    icon = Icons.Outlined.PhotoCamera,
-                                    buttonTitle = "Capture receipt",
-                                    iconSize = 44.dp
-                                ) {
-                                    paymentsViewModel.onEvent(PaymentsOverviewEvents.OnCaptureReceiptClicked)
-                                }
-                                HeaderItem(
-                                    icon = Icons.Outlined.AddCircle,
-                                    buttonTitle = "New order",
-                                    iconSize = 48.dp
-                                ) {
-                                    paymentsViewModel.onEvent(PaymentsOverviewEvents.OnNewOrderClicked)
-                                }
-                                HeaderItem(
-                                    icon = Icons.Filled.ArrowForward,
-                                    buttonTitle = "Transfer",
-                                    iconSize = 44.dp
-                                ) {
-                                    paymentsViewModel.onEvent(PaymentsOverviewEvents.OnTransferClicked)
-                                }
-                                Spacer(modifier = Modifier.width(spacing.spaceMedium))
+            LazyColumn {
+                item {
+
+                    Header(
+                        isLoading = state.isLoading,
+                        buttons = {
+                            Spacer(modifier = Modifier.width(spacing.spaceMedium))
+                            HeaderItem(
+                                icon = Icons.Outlined.PhotoCamera,
+                                buttonTitle = "Capture receipt",
+                                iconSize = 44.dp
+                            ) {
+                                paymentsViewModel.onEvent(PaymentsOverviewEvents.OnCaptureReceiptClicked)
                             }
-                        )
-                        Spacer(modifier = Modifier.height(spacing.spaceMedium))
-                        RecipientsSection(
-                            recommendedRecipientsState = state.recommendedRecipientsState
-                        )
-                        Spacer(modifier = Modifier.height(spacing.spaceMedium))
-                        BillSection(
-                            sectionTitle = "eBill",
-                            billSectionState = paymentsViewModel.state.billSectionState
-                        ) {
-                            when (paymentsViewModel.state.billSectionState) {
-                                BillSectionState.Inactive -> {
-                                    paymentsViewModel.onEvent(PaymentsOverviewEvents.OnActivateEBillClicked)
-                                }
-                                BillSectionState.Insufficient -> {
-                                    paymentsViewModel.onEvent(PaymentsOverviewEvents.OnEBillSettingsClicked)
-                                }
-                                else -> Unit
+                            HeaderItem(
+                                icon = Icons.Outlined.AddCircle,
+                                buttonTitle = "New order",
+                                iconSize = 48.dp
+                            ) {
+                                paymentsViewModel.onEvent(PaymentsOverviewEvents.OnNewOrderClicked)
                             }
+                            HeaderItem(
+                                icon = Icons.Filled.ArrowForward,
+                                buttonTitle = "Transfer",
+                                iconSize = 44.dp
+                            ) {
+                                paymentsViewModel.onEvent(PaymentsOverviewEvents.OnTransferClicked)
+                            }
+                            Spacer(modifier = Modifier.width(spacing.spaceMedium))
                         }
-                        Spacer(modifier = Modifier.height(spacing.spaceMedium))
-                        OrdersSection(state = state.pendingIndividualOrdersState) {
-                            SectionHeader(
-                                sectionTitle = "Pending individual orders",
-                                buttonText = "Show all",
-                                buttonTextColor = Color.Black,
-                                onButtonClick =
-                                if (state.pendingIndividualOrdersState is OrdersState.Valid) {
-                                    { paymentsViewModel.onEvent(PaymentsOverviewEvents.OnPendingOrdersShowMoreClicked) }
-                                } else null
-                            )
+                    )
+
+                    Spacer(modifier = Modifier.height(spacing.spaceMedium))
+
+                    RecipientsSection(recommendedRecipientsState = state.recommendedRecipientsState)
+
+                    Spacer(modifier = Modifier.height(spacing.spaceMedium))
+
+                    BillSection(
+                        sectionTitle = "eBill",
+                        billSectionState = paymentsViewModel.state.billSectionState
+                    ) {
+                        when (paymentsViewModel.state.billSectionState) {
+                            BillSectionState.Inactive -> {
+                                paymentsViewModel.onEvent(PaymentsOverviewEvents.OnActivateEBillClicked)
+                            }
+                            BillSectionState.Insufficient -> {
+                                paymentsViewModel.onEvent(PaymentsOverviewEvents.OnEBillSettingsClicked)
+                            }
+                            else -> Unit
                         }
-                        OrdersSection(state = state.standingOrdersState) {
-                            SectionHeader(
-                                sectionTitle = "Standing orders",
-                                buttonText = "Show all",
-                                buttonTextColor = Color.Black,
-                                onButtonClick =
-                                if (state.standingOrdersState is OrdersState.Valid) {
-                                    { paymentsViewModel.onEvent(PaymentsOverviewEvents.OnPendingOrdersShowMoreClicked) }
-                                } else null
-                            )
-                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(spacing.spaceMedium))
+
+                    OrdersSection(state = state.pendingIndividualOrdersState) {
+                        SectionHeader(
+                            sectionTitle = "Pending individual orders",
+                            buttonText = "Show all",
+                            buttonTextColor = Color.Black,
+                            onButtonClick =
+                            if (state.pendingIndividualOrdersState is OrdersState.Valid) {
+                                { paymentsViewModel.onEvent(PaymentsOverviewEvents.OnPendingOrdersShowMoreClicked) }
+                            } else null
+                        )
+                    }
+
+                    OrdersSection(state = state.standingOrdersState) {
+                        SectionHeader(
+                            sectionTitle = "Standing orders",
+                            buttonText = "Show all",
+                            buttonTextColor = Color.Black,
+                            onButtonClick =
+                            if (state.standingOrdersState is OrdersState.Valid) {
+                                { paymentsViewModel.onEvent(PaymentsOverviewEvents.OnPendingOrdersShowMoreClicked) }
+                            } else null
+                        )
                     }
                 }
             }
         }
     }
-
 }
 
 @Composable
@@ -151,7 +155,7 @@ fun handleUiEventsFromViewModel(
 @Preview
 @Composable
 fun PaymentsScreenPreview() {
-    Header()
+    PaymentsScreen(scaffoldState = rememberScaffoldState(), hiltViewModel())
 }
 
 

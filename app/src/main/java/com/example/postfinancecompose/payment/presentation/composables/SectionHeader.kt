@@ -35,9 +35,7 @@ fun SectionHeader(
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
             Text(
-                modifier = Modifier
-                    .padding(0.dp)
-                    .align(Alignment.CenterStart),
+                modifier = Modifier.align(Alignment.CenterStart),
                 text = sectionTitle,
                 color = textColor,
                 fontSize = textSize

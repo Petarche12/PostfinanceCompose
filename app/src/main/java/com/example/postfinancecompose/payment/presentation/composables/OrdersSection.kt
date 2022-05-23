@@ -46,6 +46,9 @@ fun OrdersLoaded(modifier: Modifier = Modifier, orders: List<Order>) {
             .fillMaxWidth()
     ) {
         repeat(5) {
+            if (it == 0) {
+                Spacer(modifier = Modifier.height(spacing.spaceSmall))
+            }
             OrderRow(order = orders[it])
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
         }

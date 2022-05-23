@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.postfinancecompose.ui.common_composables.BackIconButton
 
+//TODO make text,color,style as parameters in order to be reusable if same app bar is used in multiple screens
 @Composable
 fun PaymentsTopAppBar(modifier: Modifier = Modifier) {
     TopAppBar(modifier = modifier, elevation = 0.dp) {

@@ -19,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -28,6 +29,7 @@ fun HeaderItem(
     icon: ImageVector,
     iconSize: Dp = 36.dp,
     buttonTitle: String,
+    buttonTitleSize: TextUnit = 12.sp,
     backgroundColor: Color = Color.Transparent,
     onIconClicked: (() -> Unit)? = null
 ) {
@@ -54,7 +56,7 @@ fun HeaderItem(
         }
         Text(
             text = buttonTitle,
-            fontSize = 12.sp,
+            fontSize = buttonTitleSize,
             color = Color.Black,
             maxLines = 2,
             textAlign = TextAlign.Center,
@@ -68,6 +70,7 @@ fun HeaderItem(
     @DrawableRes icon: Int,
     iconSize: Dp = 36.dp,
     buttonTitle: String,
+    buttonTitleSize: TextUnit = 12.sp,
     backgroundColor: Color = Color.Transparent
 ) {
     Column(
@@ -93,7 +96,7 @@ fun HeaderItem(
         }
         Text(
             text = buttonTitle,
-            fontSize = 12.sp,
+            fontSize = buttonTitleSize,
             color = Color.Black,
             maxLines = 2,
             textAlign = TextAlign.Center,

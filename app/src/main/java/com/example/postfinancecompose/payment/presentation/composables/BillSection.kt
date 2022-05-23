@@ -1,5 +1,6 @@
 package com.example.postfinancecompose.payment.presentation.composables
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -24,6 +25,8 @@ import com.example.postfinancecompose.payment.presentation.BillSectionState
 import com.example.postfinancecompose.ui.common_composables.getShimmerBrush
 import com.example.postfinancecompose.ui.theme.LocalSpacing
 
+//TODO when BillsRow ui is ready refactor like recipients section style
+
 @Composable
 fun BillSection(
     modifier: Modifier = Modifier,
@@ -36,7 +39,7 @@ fun BillSection(
         when (billSectionState) {
 
             BillSectionState.Undefined -> {
-                BillSectionLoading(modifier = modifier)
+                BillSectionLoading()
             }
 
             BillSectionState.Inactive -> {
@@ -71,11 +74,13 @@ fun BillSection(
 @Composable
 fun BillSectionLoading(modifier: Modifier = Modifier, brush: Brush = getShimmerBrush()) {
     val spacing = LocalSpacing.current
-    LazyRow(
-        modifier = modifier.padding(spacing.spaceMedium)
-    ) {
-        repeat(2) {
+    LazyRow(modifier = modifier.padding(0.dp, spacing.spaceSmall, 0.dp, 0.dp)) {
+        val numberOfRepeats = 5
+        repeat(numberOfRepeats) {
             item {
+                if (it == 0) {
+                    Spacer(modifier = Modifier.width(spacing.spaceMedium))
+                }
                 Column(
                     modifier = Modifier
                         .size(150.dp)
@@ -102,7 +107,11 @@ fun BillSectionLoading(modifier: Modifier = Modifier, brush: Brush = getShimmerB
                             .padding(5.dp)
                     )
                 }
-                Spacer(modifier = Modifier.width(spacing.spaceSmall))
+                if (it == numberOfRepeats - 1) {
+                    Spacer(modifier = Modifier.width(spacing.spaceMedium))
+                } else {
+                    Spacer(modifier = Modifier.width(spacing.spaceSmall))
+                }
             }
         }
     }
@@ -113,7 +122,7 @@ fun NoBillsView(
     modifier: Modifier = Modifier,
     explanationText: String,
     buttonText: String,
-    imageRes: Int?,
+    @DrawableRes imageRes: Int?,
     onButtonClicked: () -> Unit
 ) {
 

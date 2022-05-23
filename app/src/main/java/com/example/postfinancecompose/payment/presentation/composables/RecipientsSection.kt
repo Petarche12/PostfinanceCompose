@@ -6,7 +6,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.postfinancecompose.R
 import com.example.postfinancecompose.payment.presentation.RecommendedRecipientsState
 import com.example.postfinancecompose.ui.theme.LocalSpacing
@@ -25,6 +24,7 @@ fun RecipientsSection(
             .wrapContentHeight()
     ) {
         SectionHeader(sectionTitle = "Recommended recipients")
+        Spacer(modifier = Modifier.height(spacing.spaceSmall))
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth()
@@ -76,9 +76,4 @@ fun RecommendedSectionItem(index: Int, size: Int = 0, item: @Composable () -> Un
     if (index == size - 1) {
         Spacer(modifier = Modifier.width(spacing.spaceMedium))
     }
-}
-
-@Preview
-@Composable
-fun RecipientSectionPreview() {
 }
