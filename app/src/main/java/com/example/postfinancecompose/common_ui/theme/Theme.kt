@@ -1,4 +1,4 @@
-package com.example.postfinancecompose.ui.theme
+package com.example.postfinancecompose.common_ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

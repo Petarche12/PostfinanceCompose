@@ -18,8 +18,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.postfinancecompose.common_ui.theme.LocalSpacing
 import com.example.postfinancecompose.payment.presentation.composables.*
-import com.example.postfinancecompose.ui.theme.LocalSpacing
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.plcoding.core.util.UiEvent

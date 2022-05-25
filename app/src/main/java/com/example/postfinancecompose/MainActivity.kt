@@ -11,9 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.postfinancecompose.common_ui.theme.PostfinanceComposeTheme
 import com.example.postfinancecompose.navigation.Route
 import com.example.postfinancecompose.payment.presentation.PaymentsScreen
-import com.example.postfinancecompose.ui.theme.PostfinanceComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")

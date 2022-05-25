@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.postfinancecompose.ui.common_composables.BackIconButton
+import com.example.postfinancecompose.common_ui.common_composables.BackIconButton
 
 //TODO make text,color,style as parameters in order to be reusable if same app bar is used in multiple screens
 @Composable

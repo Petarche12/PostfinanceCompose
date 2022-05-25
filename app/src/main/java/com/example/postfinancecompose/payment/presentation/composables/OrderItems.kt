@@ -11,13 +11,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import com.example.postfinancecompose.R
+import com.example.postfinancecompose.common_ui.common_composables.getShimmerBrush
+import com.example.postfinancecompose.common_ui.theme.LocalSpacing
 import com.example.postfinancecompose.payment.models.Order
-import com.example.postfinancecompose.ui.common_composables.getShimmerBrush
-import com.example.postfinancecompose.ui.theme.LocalSpacing
 
 
 @Composable
@@ -31,11 +34,18 @@ fun OrderRow(modifier: Modifier = Modifier, order: Order) {
             .height(45.dp)
             .padding(spacing.spaceMedium, 0.dp, spacing.spaceMedium, 0.dp)
     ) {
-        Box(
+        ConstraintLayout(
             modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.Center
         ) {
-            Row(modifier = Modifier.align(Alignment.CenterStart)) {
+            val (row1, row2) = createRefs()
+            Row(modifier = Modifier.constrainAs(row1) {
+                top.linkTo(parent.top)
+                bottom.linkTo(parent.bottom)
+                start.linkTo(parent.start)
+                end.linkTo(row2.start, margin = spacing.spaceMedium)
+                width = Dimension.fillToConstraints
+            }
+            ) {
                 Image(
                     modifier = modifier
                         .fillMaxHeight()
@@ -49,27 +59,40 @@ fun OrderRow(modifier: Modifier = Modifier, order: Order) {
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Text(text = order.name, fontSize = 18.sp)
-                    Text(text = "Expiration date: 27.02.2020")
+                    Text(
+                        text = order.name,
+                        fontSize = 18.sp,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1
+                    )
+                    Text(
+                        text = "Expiration date: ${order.expirationDate}",
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1
+                    )
                 }
             }
 
 
             Row(
                 modifier = Modifier
-                    .align(Alignment.CenterEnd)
-                    .fillMaxHeight(),
+                    .fillMaxHeight()
+                    .constrainAs(row2) {
+                        top.linkTo(parent.top)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom)
+                    },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "CHF",
+                    text = order.currency,
                     fontSize = 14.sp,
                     textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.width(spacing.spaceMedium))
                 Text(
-                    text = "170.00",
+                    text = order.amount.toString(),
                     fontSize = 20.sp,
                     textAlign = TextAlign.Center
                 )
@@ -110,5 +133,5 @@ fun LoadingOrderRow(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun LoadingOrderRowPreview() {
-    OrderRow(order = Order("Mobility Carsharing"))
+    OrderRow(order = Order("Mobility Carsharing dasdasdasdasd"))
 }

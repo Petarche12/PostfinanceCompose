@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.postfinancecompose.ui.theme.LocalSpacing
+import com.example.postfinancecompose.common_ui.theme.LocalSpacing
 
 @Composable
 fun SectionHeader(

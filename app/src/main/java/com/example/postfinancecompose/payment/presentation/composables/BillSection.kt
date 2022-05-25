@@ -20,10 +20,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.postfinancecompose.R
+import com.example.postfinancecompose.common_ui.common_composables.getShimmerBrush
+import com.example.postfinancecompose.common_ui.theme.LocalSpacing
 import com.example.postfinancecompose.payment.models.Bill
 import com.example.postfinancecompose.payment.presentation.BillSectionState
-import com.example.postfinancecompose.ui.common_composables.getShimmerBrush
-import com.example.postfinancecompose.ui.theme.LocalSpacing
 
 //TODO when BillsRow ui is ready refactor like recipients section style
 

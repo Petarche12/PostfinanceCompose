@@ -1,4 +1,4 @@
-package com.example.postfinancecompose.ui.theme
+package com.example.postfinancecompose.common_ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

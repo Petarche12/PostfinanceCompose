@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.example.postfinancecompose.R
+import com.example.postfinancecompose.common_ui.theme.LocalSpacing
 import com.example.postfinancecompose.payment.presentation.RecommendedRecipientsState
-import com.example.postfinancecompose.ui.theme.LocalSpacing
 
 @Composable
 fun RecipientsSection(

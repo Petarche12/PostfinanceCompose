@@ -3,9 +3,9 @@ package com.example.postfinancecompose.payment.presentation.composables
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.example.postfinancecompose.common_ui.theme.LocalSpacing
 import com.example.postfinancecompose.payment.models.Order
 import com.example.postfinancecompose.payment.presentation.OrdersState
-import com.example.postfinancecompose.ui.theme.LocalSpacing
 
 @Composable
 fun OrdersSection(
