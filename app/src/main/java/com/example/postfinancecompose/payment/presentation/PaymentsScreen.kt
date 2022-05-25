@@ -50,9 +50,10 @@ fun PaymentsScreen(
         ) {
             LazyColumn {
                 item {
-
-                    Header(
+                    val middleIconSize = 48.dp
+                    Header2(
                         isLoading = state.isLoading,
+                        buttonsHeight = middleIconSize,
                         buttons = {
                             Spacer(modifier = Modifier.width(spacing.spaceMedium))
                             HeaderItem(
@@ -65,7 +66,7 @@ fun PaymentsScreen(
                             HeaderItem(
                                 icon = Icons.Outlined.AddCircle,
                                 buttonTitle = "New order",
-                                iconSize = 48.dp
+                                iconSize = middleIconSize
                             ) {
                                 paymentsViewModel.onEvent(PaymentsOverviewEvents.OnNewOrderClicked)
                             }
@@ -80,7 +81,7 @@ fun PaymentsScreen(
                         }
                     )
 
-                    Spacer(modifier = Modifier.height(spacing.spaceMedium))
+                    Spacer(modifier = Modifier.height(spacing.spaceExtraLarge))
 
                     RecipientsSection(recommendedRecipientsState = state.recommendedRecipientsState)
 

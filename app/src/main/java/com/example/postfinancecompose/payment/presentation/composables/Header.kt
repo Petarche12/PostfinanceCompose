@@ -11,7 +11,9 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 
 @Composable
 fun Header(
@@ -48,15 +50,62 @@ fun Header(
                 .fillMaxWidth()
                 .padding(0.dp, 106.dp, 0.dp, 0.dp),
             verticalAlignment = Alignment.Top,
-            horizontalArrangement = Arrangement.SpaceEvenly
+            horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
             buttons?.invoke()
         }
     }
 }
 
+@Composable
+fun Header2(
+    modifier: Modifier = Modifier,
+    backgroundColor: Color = MaterialTheme.colors.primary,
+    isLoading: Boolean = true,
+    buttonsHeight: Dp,
+    buttons: @Composable (() -> Unit)? = null
+) {
+    ConstraintLayout(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(150.dp)
+            .background(backgroundColor)
+    ) {
+        val (progressIndicatorRef, buttonsRowRef) = createRefs()
+        if (isLoading) {
+            LinearProgressIndicator(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(2.dp)
+                    .constrainAs(progressIndicatorRef) {
+                        bottom.linkTo(parent.bottom)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    },
+                backgroundColor = Color.Green,
+                color = Color.Red,
+            )
+        }
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .constrainAs(buttonsRowRef) {
+                    top.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+                .absoluteOffset(0.dp, -buttonsHeight / 2),
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.SpaceEvenly,
+        ) {
+            buttons?.invoke()
+        }
+    }
+}
+
+
 @Preview
 @Composable
 fun PaymentsHeaderPreview() {
-    Header()
+    Header2(buttonsHeight = 24.dp)
 }
